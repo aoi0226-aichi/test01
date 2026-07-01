@@ -7,16 +7,17 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #eef7ff;
+      --bg: #eaf6ff;
       --surface: #ffffff;
-      --surface-strong: #d8edff;
-      --text: #111827;
-      --text-muted: #5a6575;
-      --accent: #42b7ff;
-      --accent-dark: #1f78c8;
-      --border: rgba(66, 183, 255, 0.18);
-      --radius: 24px;
-      --shadow: 0 24px 60px rgba(37, 91, 139, 0.12);
+      --surface-soft: #f3fbff;
+      --surface-strong: #d3ecff;
+      --primary: #2c8fed;
+      --primary-dark: #1662a0;
+      --text: #0f2036;
+      --text-muted: #5d6d80;
+      --border: rgba(44, 142, 237, 0.18);
+      --radius: 30px;
+      --shadow: 0 32px 70px rgba(23, 63, 116, 0.12);
     }
 
     * {
@@ -30,11 +31,10 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Helvetica Neue', 'Yu Gothic', 'Hiragino Kaku Gothic Pro', Meiryo, sans-serif;
-      background: radial-gradient(circle at top, rgba(66, 183, 255, 0.2), transparent 32%),
-        linear-gradient(180deg, #f8fbff 0%, #eef7ff 40%, #ffffff 100%);
+      font-family: 'Yu Gothic', 'Hiragino Kaku Gothic Pro', Meiryo, sans-serif;
+      background: linear-gradient(180deg, #eef7ff 0%, #f8fbff 55%, #ffffff 100%);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     img {
@@ -42,81 +42,76 @@
       display: block;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
     .page {
       width: min(1180px, 100%);
       margin: 0 auto;
-      padding: 16px;
+      padding: 24px;
     }
 
-    header {
+    .hero-card {
       position: relative;
       overflow: hidden;
-      border-radius: 32px;
-      padding: 48px 32px 32px;
-      background: linear-gradient(135deg, #46b8ff 0%, #84c9ff 42%, #f4fbff 100%);
+      border-radius: 44px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(227,246,255,0.9) 100%);
+      border: 1px solid var(--border);
       box-shadow: var(--shadow);
     }
 
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.75), transparent 24%),
-        radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.22), transparent 18%);
-      pointer-events: none;
-    }
-
-    .hero {
-      position: relative;
+    .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 1fr);
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 1fr);
       gap: 32px;
       align-items: center;
-      z-index: 1;
+      min-height: 420px;
     }
 
     .hero-copy {
-      max-width: 600px;
+      padding: 44px 40px 34px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
     }
 
-    .eyebadge {
+    .hero-label {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      background: rgba(255, 255, 255, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.45);
+      justify-content: center;
+      padding: 12px 18px;
       border-radius: 999px;
-      color: #063b6f;
-      font-size: 13px;
+      background: rgba(255,255,255,0.8);
+      color: var(--primary-dark);
+      font-size: 0.96rem;
       font-weight: 700;
-      margin-bottom: 22px;
-      backdrop-filter: blur(8px);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      width: fit-content;
     }
 
     .hero-title {
-      margin: 0 0 18px;
-      font-size: clamp(2.6rem, 4.6vw, 4.8rem);
+      margin: 0;
+      font-size: clamp(3rem, 4.5vw, 4.5rem);
       line-height: 0.95;
       letter-spacing: -0.05em;
+      max-width: 13ch;
+      white-space: normal;
+    }
+
+    .hero-title br {
+      display: block;
     }
 
     .hero-text {
-      margin: 0 0 28px;
-      font-size: 1rem;
+      margin: 0;
       color: var(--text-muted);
-      max-width: 520px;
+      font-size: 1rem;
+      max-width: 540px;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 16px;
     }
 
     .button {
@@ -124,320 +119,289 @@
       align-items: center;
       justify-content: center;
       min-height: 52px;
-      padding: 0 24px;
       border-radius: 999px;
-      border: none;
+      padding: 0 24px;
       font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
       cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      background: #0c5ea6;
-      color: #fff;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--primary), #0c5d9b);
+      color: #ffffff;
+      box-shadow: 0 18px 30px rgba(16, 95, 180, 0.22);
     }
 
     .button.secondary {
-      background: rgba(255, 255, 255, 0.95);
-      color: #0b3b6c;
-      border: 1px solid rgba(15, 60, 105, 0.12);
+      background: rgba(255,255,255,0.92);
+      color: var(--primary-dark);
+      border: 1px solid rgba(44, 142, 237, 0.18);
     }
 
     .button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(24, 78, 126, 0.18);
+      box-shadow: 0 20px 35px rgba(16, 95, 180, 0.18);
     }
 
     .hero-image {
       position: relative;
-      background: rgba(255, 255, 255, 0.65);
-      border-radius: 32px;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
-      overflow: hidden;
-      padding: 18px;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      min-height: 360px;
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.55), transparent 28%),
+                  radial-gradient(circle at bottom right, rgba(255,255,255,0.24), transparent 20%);
     }
 
     .hero-image img {
+      position: relative;
       width: 100%;
-      border-radius: 24px;
-      object-fit: contain;
-      filter: drop-shadow(0 26px 40px rgba(0, 44, 95, 0.16));
-    }
-
-    .main {
-      margin-top: 40px;
-      display: grid;
-      gap: 36px;
+      height: auto;
+      border-radius: 28px;
+      object-fit: cover;
+      box-shadow: 0 28px 60px rgba(24, 60, 108, 0.16);
     }
 
     .section {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 32px;
-      box-shadow: 0 18px 45px rgba(44, 80, 125, 0.08);
+      margin-top: 40px;
+      background: var(--surface);
+      border-radius: 34px;
+      border: 1px solid rgba(44, 142, 237, 0.12);
+      overflow: hidden;
+      box-shadow: 0 22px 54px rgba(23, 63, 116, 0.07);
     }
 
-    .section-head {
+    .section-body {
+      padding: 32px 40px 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 460px);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .section-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .section-heading {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 24px;
+      margin: 0;
     }
 
-    .section-number {
-      width: 46px;
-      height: 46px;
+    .badge {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: linear-gradient(180deg, #5fc7ff, #0f74b9);
-      color: #fff;
+      background: linear-gradient(180deg, var(--primary), #0e5a9a);
+      color: #ffffff;
       font-weight: 800;
-      font-size: 0.95rem;
+      box-shadow: 0 12px 28px rgba(26, 91, 171, 0.18);
     }
 
     .section-title {
       margin: 0;
-      font-size: 1.55rem;
-      color: #0d253f;
-      letter-spacing: -0.03em;
+      font-size: 1.75rem;
+      color: var(--text);
     }
 
     .section-copy {
       margin: 0;
       color: var(--text-muted);
-      font-size: 0.98rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: #f8fbff;
-      border: 1px solid rgba(66, 183, 255, 0.15);
-      border-radius: 22px;
-      padding: 24px;
-    }
-
-    .card h3 {
-      margin-top: 0;
-      font-size: 1.25rem;
-      color: #0b406f;
-    }
-
-    .card p {
-      margin: 14px 0 0;
-      color: var(--text-muted);
+      font-size: 1rem;
     }
 
     .feature-list {
       display: grid;
-      gap: 18px;
+      gap: 20px;
     }
 
     .feature-item {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
+      display: grid;
+      gap: 8px;
+      padding: 18px 20px;
+      border-radius: 24px;
+      background: #f5fbff;
+      border: 1px solid rgba(44, 142, 237, 0.1);
     }
 
-    .feature-item-number {
-      min-width: 44px;
-      min-height: 44px;
-      border-radius: 50%;
-      background: rgba(66, 183, 255, 0.14);
-      color: #0965a4;
+    .feature-item strong {
+      display: block;
+      font-size: 1.05rem;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .feature-item p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .feature-image {
+      overflow: hidden;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(227,246,255,0.95));
+      padding: 18px;
       display: grid;
       place-items: center;
-      font-weight: 700;
     }
 
-    .feature-item-body {
-      flex: 1;
-    }
-
-    .feature-item-body h4 {
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-      color: #142a45;
-    }
-
-    .feature-item-body p {
-      margin: 0;
-      color: var(--text-muted);
-    }
-
-    .hero-card {
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 26px 64px rgba(28, 68, 108, 0.1);
-    }
-
-    .hero-card picture {
-      display: block;
-    }
-
-    .media-card {
-      display: grid;
-      gap: 16px;
-    }
-
-    .media-card a {
-      display: block;
-      padding: 20px;
+    .feature-image img {
+      width: 100%;
+      height: auto;
       border-radius: 24px;
-      background: linear-gradient(180deg, #edf6ff 0%, #eefbff 100%);
-      border: 1px solid rgba(66, 183, 255, 0.2);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
-      color: #0b3b6c;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .media-card a:hover {
-      transform: translateY(-1px);
-      border-color: rgba(66, 183, 255, 0.4);
-    }
-
-    .media-card p {
-      margin: 0;
-      color: var(--text-muted);
+      box-shadow: 0 24px 50px rgba(24, 60, 108, 0.12);
     }
 
     footer {
-      margin: 48px 0 24px;
+      margin: 44px 0 18px;
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.92rem;
+      font-size: 0.95rem;
     }
 
-    @media (max-width: 880px) {
-      .hero {
+    @media (max-width: 960px) {
+      .hero-grid,
+      .section-body {
         grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        padding: 34px 28px 24px;
+      }
+
+      .hero-image {
+        padding: 20px;
+      }
+
+      .section-body {
+        padding: 28px 28px 36px;
       }
     }
 
     @media (max-width: 680px) {
-      header {
-        padding: 32px 20px 28px;
+      .page {
+        padding: 16px;
       }
 
-      .section {
-        padding: 24px;
+      .hero-card {
+        border-radius: 32px;
       }
 
-      .grid-2 {
-        grid-template-columns: 1fr;
+      .hero-copy {
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .hero-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero-actions .button {
+        width: 100%;
       }
 
       .hero-title {
-        font-size: clamp(2.4rem, 7vw, 3.6rem);
+        font-size: 2.8rem;
+      }
+
+      .section-body {
+        padding: 24px 20px 28px;
       }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <header>
-      <div class="hero">
+    <section class="hero-card">
+      <div class="hero-grid">
         <div class="hero-copy">
-          <span class="eyebadge">キャラクター紹介</span>
-          <h1 class="hero-title">ケリュドラの魅力を<br>視覚で伝える紹介ページ</h1>
-          <p class="hero-text">『崩壊スターレイル』に登場するオンバロス所属キャラクター、ケリュドラの美しいビジュアルとモーション、世界観をわかりやすく紹介します。</p>
+          <span class="hero-label">キャラクター紹介</span>
+          <h1 class="hero-title">ケリュドラの魅力を<br />視覚で伝える紹介ページ</h1>
+          <p class="hero-text">『崩壊スターレイル』に登場するオンバロス所属キャラクター、ケリュドラのビジュアルとモーションを、画像とテキストでわかりやすく紹介します。</p>
           <div class="hero-actions">
-            <a class="button" href="#visual">ビジュアルを見る</a>
+            <a class="button primary" href="#visual">ビジュアルを見る</a>
             <a class="button secondary" href="#movie">キャラクターPVへ</a>
           </div>
         </div>
 
-        <div class="hero-image hero-card">
+        <div class="hero-image">
           <img src="img/kerilyudora.jpg" alt="ケリュドラのキャラクターイラスト" />
         </div>
       </div>
-    </header>
+    </section>
 
-    <main class="main">
-      <section class="section" id="visual">
-        <div class="section-head">
-          <div class="section-number">01</div>
-          <div>
-            <h2 class="section-title">圧倒的なビジュアル</h2>
-            <p class="section-copy">ケリュドラの世界観を表現する、章立てされた解説と画像で魅力を伝えます。</p>
+    <section class="section" id="visual">
+      <div class="section-body">
+        <div class="section-info">
+          <div class="section-heading">
+            <div class="badge">01</div>
+            <div>
+              <h2 class="section-title">圧倒的なビジュアル</h2>
+              <p class="section-copy">ケリュドラの世界観を表現する、章立てされた解説と画像で魅力を伝えます。</p>
+            </div>
+          </div>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <strong>服のデザイン</strong>
+              <p>チェス盤を想起させる模様と、欧州の貴族風装飾が融合した衣装が目を引きます。</p>
+            </div>
+            <div class="feature-item">
+              <strong>王冠のシンボル</strong>
+              <p>頭部の小さな王冠は力と代償を象徴し、キャラクターの重厚感を強調します。</p>
+            </div>
           </div>
         </div>
 
-        <div class="grid-2">
-          <div class="feature-list">
-            <article class="feature-item">
-              <div class="feature-item-number">1</div>
-              <div class="feature-item-body">
-                <h4>服のデザイン</h4>
-                <p>チェス盤を想起させる模様と、欧州の貴族風装飾が融合した衣装が目を引きます。</p>
-              </div>
-            </article>
-            <article class="feature-item">
-              <div class="feature-item-number">2</div>
-              <div class="feature-item-body">
-                <h4>王冠とシンボル</h4>
-                <p>頭部の小さな王冠は力と代償を象徴し、キャラクターの重厚感を強調します。</p>
-              </div>
-            </article>
-          </div>
-
-        <div class="hero-card">
+        <div class="feature-image">
           <img src="img/kerilyudora2.jpg" alt="ケリュドラの全身イラスト" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section">
-        <div class="section-head">
-          <div class="section-number">02</div>
-          <div>
-            <h2 class="section-title">洗練されたモーション</h2>
-            <p class="section-copy">攻撃モーションと待機モーションの印象を、短い説明でまとめています。</p>
+    <section class="section" id="movie">
+      <div class="section-body" style="grid-template-columns: 1fr; gap: 20px; padding: 32px 40px 40px;">
+        <div class="section-info">
+          <div class="section-heading">
+            <div class="badge">02</div>
+            <div>
+              <h2 class="section-title">キャラクターPV</h2>
+              <p class="section-copy">公式PVをクリックして、ケリュドラの世界観を動画で楽しんでください。</p>
+            </div>
           </div>
         </div>
         <div class="feature-list">
-          <article class="feature-item">
-            <div class="feature-item-number">1</div>
-            <div class="feature-item-body">
-              <h4>攻撃モーション</h4>
-              <p>チェスの駒を使った必殺技や戦闘スキルは、冷静さと華麗さを併せ持つ演出です。</p>
-            </div>
-          </article>
-          <article class="feature-item">
-            <div class="feature-item-number">2</div>
-            <div class="feature-item-body">
-              <h4>待機モーション</h4>
-              <p>待機時もチェス駒を扱い、君主のように優雅に佇む佇まいが魅力です。</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="movie">
-        <div class="section-head">
-          <div class="section-number">03</div>
-          <div>
-            <h2 class="section-title">キャラクターPV</h2>
-            <p class="section-copy">公式PVをクリックして、ケリュドラの世界観を動画で体験できます。</p>
-          </div>
-        </div>
-        <div class="media-card">
-          <a href="https://www.youtube.com/watch?v=2Xuwbaab9P4&pp=ygUl44Kx44Oq44Ol44OJ44OpIOW-heapn-ODouODvOOCt-ODp-ODsw%3D%3D" target="_blank" rel="noopener noreferrer">
-            <h3>公式PVを再生</h3>
-            <p>YouTubeのキャラクターPVページへ移動します。</p>
+          <a class="feature-item" href="https://www.youtube.com/watch?v=2XuwbaB9P4g" target="_blank" rel="noopener noreferrer" style="background:#eef8ff;border-color:rgba(44,142,237,0.15);">
+            <strong>公式PVを再生</strong>
+            <p>このリンクからYouTubeのキャラクターPVへ移動します。</p>
           </a>
-          <a href="https://www.youtube.com/watch?v=60pOoR8bXIo&t=176s&pp=ygUl44Kx44Oq44Ol44OJ44OpIOW-heapn-ODouODvOOCt-ODp-ODsw%3D%3D" target="_blank" rel="noopener noreferrer" class="secondary">
-            <h3>紹介ムービーを見る</h3>
-            <p>攻撃・待機モーションの参考動画を確認。</p>
+          <a class="feature-item" href="https://youtu.be/6opOoR8bXIo" target="_blank" rel="noopener noreferrer" style="background:#fff9f7;border-color:rgba(241,140,34,0.12);">
+            <strong>紹介ムービーを見る</strong>
+            <p>攻撃・待機モーションの参考動画を確認できます。</p>
           </a>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
     <footer>
-      COGNOSPHERE PTE. LTD. ／ 崩壊スターレイル ケリュドラ紹介
+      COGNOSPHERE PTE. LTD.
     </footer>
   </div>
 </body>
